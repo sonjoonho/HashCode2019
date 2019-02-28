@@ -4,7 +4,6 @@ class SlideshowBuilder(val horizontalPhotos: List<Photo>, val verticalPhotos: Li
 
   fun build(): Slideshow {
     val slides = SlideshowBuilder.optimizePhotos(verticalPhotos, horizontalPhotos)
-    println(slides)
     return Slideshow(slides)
   }
 
@@ -15,6 +14,7 @@ class SlideshowBuilder(val horizontalPhotos: List<Photo>, val verticalPhotos: Li
       val inputSlides = mutableListOf<Slide>()
       inputSlides.addAll(horizontalPhotos.map { SingleSlide(it) })
       inputSlides.addAll(verticalPhotosToSlides(verticalPhotos))
+      inputSlides.shuffle()
 
       // Segment the results
       val maxPerSegment = 7
@@ -31,9 +31,12 @@ class SlideshowBuilder(val horizontalPhotos: List<Photo>, val verticalPhotos: Li
       return outputSegments.flatten()
     }
 
+    var count = 1
+
     // Algorithm re-orders an arbitrary list of slides.
     fun optimizeSegment(slides: List<Slide>): List<Slide> {
-      println("Optimising segment")
+      println("Optimising segment ${count * 7}")
+      count++
       assert(slides.isNotEmpty())
       val permutations = getAllPermutationsOfSegment(slides).distinct()
 
