@@ -17,7 +17,7 @@ class SlideshowBuilder(val horizontalPhotos: List<Photo>, val verticalPhotos: Li
       inputSlides.shuffle()
 
       // Segment the results
-      val maxPerSegment = 7
+      val maxPerSegment = 5
 
       val inputSegments: List<List<Slide>> = inputSlides.chunked(maxPerSegment)
       // TODO Check if last segment is empty
