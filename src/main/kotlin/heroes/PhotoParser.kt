@@ -16,7 +16,7 @@ class PhotoParser(val input: String) {
     println("Number of photos: $numberOfPhotos")
 
     return lines
-      .slice(1..lines.size)
+      .slice(1..(lines.size - 2))
       .map { lineToPhoto(it) }
   }
 
@@ -24,7 +24,7 @@ class PhotoParser(val input: String) {
     val splitLine = line.split(" ")
     val orientation = if (splitLine[0] == "H") Orientation.HORIZONTAL else Orientation.VERTICAL
     val numberOfTags = splitLine[1].toInt()
-    val tags = splitLine.slice(2..numberOfTags).toSet()
+    val tags = splitLine.slice(2..numberOfTags+1).toSet()
     return Photo(id++, orientation, tags)
   }
 }
