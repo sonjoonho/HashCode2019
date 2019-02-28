@@ -26,7 +26,7 @@ fun main(args: Array<String>) {
   // Split photos into horizontal and vertical
   val (horizontalPhotos, verticalPhotos) = photos.partition { it.orientation == Orientation.HORIZONTAL}
 
-  val slideshow = SlideshowBuilder(horizontalPhotos, verticalPhotos).build()
+  val slideshow = GreedySlideshowBuilder(horizontalPhotos, verticalPhotos).build()
 
   // Do output generation
   val outputGenerator = OutputGenerator(slideshow, args[0])
