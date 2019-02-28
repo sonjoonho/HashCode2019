@@ -10,7 +10,6 @@ class GreedySlideshowBuilder(private val horizontalPhotos: List<Photo>, private 
 
         val horizontalSlides = horizontalPhotos
                                  .map { SingleSlide(it) }
-                                 .sortedBy { it.tags.size }
                                  .toMutableList()
 
         val verticalPhotosCopy = verticalPhotos
@@ -19,7 +18,7 @@ class GreedySlideshowBuilder(private val horizontalPhotos: List<Photo>, private 
 
         while (horizontalSlides.isNotEmpty() || verticalPhotosCopy.size > 1) {
 
-            val verticalSlides = allPossibleVerticalSlides(verticalPhotosCopy).sortedBy { it.tags.size }
+            val verticalSlides = allPossibleVerticalSlides(verticalPhotosCopy)
 
             val bestMatch = findBestMatch(slides.last(), horizontalSlides + verticalSlides)
 
@@ -32,6 +31,8 @@ class GreedySlideshowBuilder(private val horizontalPhotos: List<Photo>, private 
                     verticalPhotosCopy.remove(bestMatch.photo2)
                 }
             }
+
+            println("Remaining pictures : ${horizontalSlides.size + verticalPhotosCopy.size}")
         }
 
         slides.remove(slides.first())
