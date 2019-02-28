@@ -4,6 +4,9 @@ import heroes.Photo
 import heroes.Orientation
 
 class PhotoParser(val input: String) {
+
+  var id = 0
+
   fun parse(): List<Photo> {
     val lines = this.input.lines()
     // N
@@ -22,6 +25,6 @@ class PhotoParser(val input: String) {
     val orientation = if (splitLine[0] == "H") Orientation.HORIZONTAL else Orientation.VERTICAL
     val numberOfTags = splitLine[1].toInt()
     val tags = splitLine.slice(2..numberOfTags).toSet()
-    return Photo(orientation, tags)
+    return Photo(id++, orientation, tags)
   }
 }

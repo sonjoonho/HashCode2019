@@ -1,7 +1,6 @@
 package heroes
 
 import java.io.File
-import heroes.PhotoParser
 
 // Current algorithm:
 // 1. Choose M vertical photos which we know we will combine into slides (we do this
@@ -21,11 +20,13 @@ import heroes.PhotoParser
 fun main(args: Array<String>) {
   val file = File(args[0])
   val parser: PhotoParser = PhotoParser(file.readText())
+  val photos = parser.parse()
+  println(photos)
 }
 
 enum class Orientation {VERTICAL, HORIZONTAL}
 
-data class Photo(val orientation: Orientation, val tags: Set<String>) {
+data class Photo(val id: Int, val orientation: Orientation, val tags: Set<String>) {
   // Photo has a set of strings, which represents its tags
 }
 
@@ -67,10 +68,13 @@ object Tags {
 
 class Slideshow(val slides: List<Slide>) {
   companion object {
-    // This is the step we do before doing any permutation
-    fun mergeNVerticalPhotosIntoSlides(photos : List<Photo>) : List<Slide> {
-      // TODO
+    // 1. Choose M vertical photos which we know we will combine into slides (we do this
+    // naive algorithm in a helper function since we can always swap this algorithm out
+    // into an optimised one)
+    fun mergeNVerticalPhotosIntoSlides(photos : List<Photo>, m: Int) : List<List<Slide>> {      // TODO
       return emptyList()
+      var candidates : ArrayList<Int> = arrayListOf()
+
     }
 
     // Algorithm re-orders an arbitrary list of slides.THIS IS WHERE THE MAIN
