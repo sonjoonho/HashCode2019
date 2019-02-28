@@ -25,3 +25,9 @@ fun verticalPhotosToSlides(vertical: List<Photo>) : List<DoubleSlide> {
 
   return doubleSlides
 }
+
+fun getInterestFactor(slide1: Slide, slide2: Slide): Int {
+    return minOf(Tags.countTagsInCommon(slide1, slide2),
+                 Tags.countTagsInP1ButNotInP2(slide1, slide2),
+                 Tags.countTagsInP2ButNotInP1(slide1, slide2))
+}
