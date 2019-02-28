@@ -1,3 +1,5 @@
+package heroes
+
 enum class Orientation {VERTICAL, HORIZONTAL}
 
 data class Photo(val id: Int, val orientation: Orientation, val tags: Set<String>)

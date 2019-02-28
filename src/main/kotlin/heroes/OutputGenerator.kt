@@ -2,14 +2,14 @@ package heroes
 
 import java.io.File
 
-class outputGenerator(val slideshow: Slideshow, val fileName: String) {
+class OutputGenerator(val slideshow: Slideshow, val fileName: String) {
 
-    val targetFileName = "$fileName.out"
+    val targetFilename = fileName.removeSuffix(".txt") + "_out.txt"
     val outputFile = File(targetFileName)
 
     fun generateOutput() {
-        outputFile.appendText(slideshow.slides.size.toString(10) + "\n")
-        slideshow.slides.forEach { outputFile.appendText(generateLineForSlide(it)) }
+        outputFile.writeText(slideshow.slides.size.toString(10) + "\n")
+        slideshow.slides.forEach { outputFile.writeText(generateLineForSlide(it)) }
     }
 
     private fun generateLineForSlide(slide: Slide) : String {
