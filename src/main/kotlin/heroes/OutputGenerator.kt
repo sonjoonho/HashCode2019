@@ -2,10 +2,10 @@ package heroes
 
 import java.io.File
 
-class OutputGenerator(val slideshow: Slideshow, val fileName: String) {
+class OutputGenerator(val slideshow: Slideshow, filename: String) {
 
-    val targetFilename = fileName.removeSuffix(".txt") + "_out.txt"
-    val outputFile = File(targetFileName)
+    val targetFilename = filename.removeSuffix(".txt") + "_out.txt"
+    val outputFile = File(targetFilename)
 
     fun generateOutput() {
         outputFile.writeText(slideshow.slides.size.toString(10) + "\n")
