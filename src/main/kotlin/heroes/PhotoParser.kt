@@ -1,7 +1,9 @@
+package heroes
+
 import heroes.Photo
 import heroes.Orientation
 
-class Parser(val input: String) {
+class PhotoParser(val input: String) {
   fun parse(): List<Photo> {
     val lines = this.input.lines()
     // N
