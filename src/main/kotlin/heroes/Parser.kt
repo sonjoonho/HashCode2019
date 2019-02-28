@@ -15,11 +15,11 @@ class Parser(val input: String) {
       .map { lineToPhoto(it) }
   }
 
-  fun lineToPhoto(line: String): Photo {
+  private fun lineToPhoto(line: String): Photo {
     val splitLine = line.split(" ")
-    val orientation = if (line[0] == "H") Orientation.HORIZONTAL else Orientation.VERTICAL
-    val numberOfTags = line[1].toInt()
-    val tags = line.slice(2..numberOfTags)
+    val orientation = if (splitLine[0] == "H") Orientation.HORIZONTAL else Orientation.VERTICAL
+    val numberOfTags = splitLine[1].toInt()
+    val tags = splitLine.slice(2..numberOfTags).toSet()
     return Photo(orientation, tags)
   }
 }
