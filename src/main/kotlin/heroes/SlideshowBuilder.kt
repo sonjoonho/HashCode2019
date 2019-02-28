@@ -12,15 +12,13 @@ class SlideshowBuilder(val horizontalPhotos: List<Photo>, val verticalPhotos: Li
   companion object {
     fun optimizePhotos(verticalPhotos: List<Photo>, horizontalPhotos: List<Photo>): List<Slide> {
       // Map photos into slides 1:1
-      // TODO: Tiger help pls
       val inputSlides = mutableListOf<Slide>()
       inputSlides.addAll(horizontalPhotos.map { SingleSlide(it) })
       inputSlides.addAll(verticalPhotosToSlides(verticalPhotos))
 
       // Segment the results
-      val maxPerSegment = 5
-      // TODO: someone help pls - split inputSlides into a list inputSegments
-      // JOON IS ON IT
+      val maxPerSegment = 7
+
       val inputSegments: List<List<Slide>> = inputSlides.chunked(maxPerSegment)
       // TODO Check if last segment is empty
 

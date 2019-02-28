@@ -5,8 +5,6 @@ import java.nio.file.Paths
 
 class OutputGenerator(val slideshow: Slideshow, filename: String) {
 
-    val projectRoot = Paths.get("").toAbsolutePath()
-
     val targetFilename = File(filename).nameWithoutExtension + "_out.txt"
     val outputFile = File(Paths.get("", targetFilename).toAbsolutePath().toString())
 

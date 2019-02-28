@@ -1,6 +1,3 @@
 package heroes
 
-class Slideshow(val slides: List<Slide>) {
-
-
-}
+class Slideshow(val slides: List<Slide>)
