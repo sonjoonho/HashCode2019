@@ -21,12 +21,12 @@ import java.io.File
 fun main(args: Array<String>) {
   val file = File(args[0])
   val parser = PhotoParser(file.readText())
-  var photos = parser.parse()
+  val photos = parser.parse()
 
   // Split photos into horizontal and vertical
-  val (horizontal, vertical) = photos.partition { it.orientation == Orientation.HORIZONTAL}
+  val (horizontalPhotos, verticalPhotos) = photos.partition { it.orientation == Orientation.HORIZONTAL}
 
-  val slideshow = SlideshowBuilder(horizontal, vertical).build()
+  val slideshow = SlideshowBuilder(horizontalPhotos, verticalPhotos).build()
 
   // Do output generation
   val outputGenerator = OutputGenerator(slideshow, args[0])
