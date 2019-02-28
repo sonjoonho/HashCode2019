@@ -11,17 +11,30 @@ class GreedySlideshowBuilder(private val horizontalPhotos: List<Photo>, private 
         val horizontalSlides = horizontalPhotos
                                  .map { SingleSlide(it) }
                                  .sortedBy { it.tags.size }
+                                 .toMutableList()
 
         val verticalPhotosCopy = verticalPhotos
-                                   .toMutableList()
                                    .sortedBy { it.tags.size }
+                                   .toMutableList()
 
         while (horizontalSlides.isNotEmpty() || verticalPhotosCopy.size > 1) {
 
             val verticalSlides = allPossibleVerticalSlides(verticalPhotosCopy).sortedBy { it.tags.size }
 
+            val bestMatch = findBestMatch(slides.last(), horizontalSlides + verticalSlides)
 
+            slides.add(bestMatch)
+
+            when (bestMatch) {
+                is SingleSlide -> horizontalSlides.remove(bestMatch)
+                is DoubleSlide -> {
+                    verticalPhotosCopy.remove(bestMatch.photo1)
+                    verticalPhotosCopy.remove(bestMatch.photo2)
+                }
+            }
         }
+
+        slides.remove(slides.first())
 
         return Slideshow(slides)
     }
@@ -44,4 +57,21 @@ fun allPossibleVerticalSlides(verticalPhotos: List<Photo>): List<DoubleSlide> {
     }
 
     return slides
+}
+
+fun findBestMatch(slide: Slide, choices: List<Slide>): Slide {
+
+    var highestInterestFactor = Integer.MIN_VALUE
+    var chosenSlide = choices.first()
+
+    for (choice in choices) {
+        val interestFactor = getInterestFactor(slide, choice)
+
+        if (interestFactor > highestInterestFactor) {
+            highestInterestFactor = interestFactor
+            chosenSlide = choice
+        }
+    }
+
+    return chosenSlide
 }
