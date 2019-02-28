@@ -4,7 +4,8 @@ class Slideshow(val slides: List<Slide>) {
 
   companion object {
     fun optimizePhotos(photos : List<Photo>) : List<Slide> {
-      // TODO: CALL THIS FROMMAIN
+
+
       return emptyList()
     }
 

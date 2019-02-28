@@ -1,11 +1,14 @@
 package heroes
 
 import java.io.File
+import java.nio.file.Paths
 
 class OutputGenerator(val slideshow: Slideshow, filename: String) {
 
-    val targetFilename = filename.removeSuffix(".txt") + "_out.txt"
-    val outputFile = File(targetFilename)
+    val projectRoot = Paths.get("").toAbsolutePath()
+
+    val targetFilename = File(filename).nameWithoutExtension + "_out.txt"
+    val outputFile = File(Paths.get("", targetFilename).toAbsolutePath().toString())
 
     fun generateOutput() {
         outputFile.writeText(slideshow.slides.size.toString(10) + "\n")
