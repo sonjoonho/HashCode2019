@@ -44,4 +44,6 @@ fun main(args: Array<String>) {
   // Do output generation
   val outputGenerator = OutputGenerator(slideshow, args[0])
   outputGenerator.generateOutput()
+
+  println("Finished.")
 }

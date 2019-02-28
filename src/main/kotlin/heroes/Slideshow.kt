@@ -3,8 +3,27 @@ package heroes
 class Slideshow(val slides: List<Slide>) {
 
   companion object {
-    fun optimizePhotos(photos : List<Photo>) : List<Slide> {
+    fun optimizePhotos(verticalPhotos : List<Photo>, horizontalPhotos : List<Photo>) : List<Slide> {
+      // Map photos into slides 1:1
+      // TODO: Tiger help pls
+      val inputSlides = mutableListOf<Slide>()
+      inputSlides.addAll(horizontalPhotos.map(SingleSlide(it)))
+      inputSlides.addAll(verticalPhotosToSlides(verticalPhotos))
 
+      // Segment the results
+      val inputSegments = mutableListOf<Slide>()
+      int maxPerSegment = 10
+      // TODO: someone help pls - split inputSlides into a list inputSegments
+      // of NON-EMPTY segments with every segment of length n (possibly except for the last segment)
+
+      for
+
+      val outputSegments = mutableListOf<Slide>()
+
+      val outputSlides = mutableListOf<Slide>()
+      // Optimise the segments, adding each optimised list into a result
+
+      //
 
       return emptyList()
     }

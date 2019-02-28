@@ -12,7 +12,7 @@ class OutputGenerator(val slideshow: Slideshow, filename: String) {
 
     fun generateOutput() {
         outputFile.writeText(slideshow.slides.size.toString(10) + "\n")
-        slideshow.slides.forEach { outputFile.writeText(generateLineForSlide(it)) }
+        slideshow.slides.forEach { outputFile.appendText(generateLineForSlide(it)) }
     }
 
     private fun generateLineForSlide(slide: Slide) : String {
