@@ -20,7 +20,7 @@ import java.io.File
 // Input filename into args[0]
 fun main(args: Array<String>) {
   val file = File(args[0])
-  val parser: PhotoParser = PhotoParser(file.readText())
+  val parser = PhotoParser(file.readText())
   var photos = parser.parse()
 
   // Order photos according to number of tags

@@ -1,8 +1,5 @@
 package heroes
 
-import heroes.Photo
-import heroes.Orientation
-
 class PhotoParser(val input: String) {
 
   var id = 0
