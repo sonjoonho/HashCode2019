@@ -23,12 +23,6 @@ fun main(args: Array<String>) {
   val parser = PhotoParser(file.readText())
   var photos = parser.parse()
 
-  // Order photos according to number of tags
-  // Filter out photos with 0 tags
-  photos = photos
-    .filter { it.tags.isNotEmpty() }
-    .sortedBy { it.tags.size }
-
   // Split photos into horizontal and vertical
   val (horizontal, vertical) = photos.partition { it.orientation == Orientation.HORIZONTAL}
 
