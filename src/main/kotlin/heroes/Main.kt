@@ -21,94 +21,72 @@ import java.io.File
 fun main(args: Array<String>) {
   val file = File(args[0])
   val parser: PhotoParser = PhotoParser(file.readText())
-  val photos = parser.parse()
-  println(photos)
+  var photos = parser.parse()
 
-  photos.filter()
+  // Order photos according to number of tags
+  // Filter out photos with 0 tags
+  photos = photos
+    .filter { it.tags.isNotEmpty() }
+    .sortedBy { it.tags.size }  // Split photos into horizontal and vertical
+  val (horizontal, vertical) = photos.partition { it.orientation == Orientation.HORIZONTAL}
+
+  // Convert Horizontal photos to slides
+horizontalSlides = horizontal.map {  }
+
+  // Convert Vertical photos to slides
+
   // Test output
-}
 
-enum class Orientation {VERTICAL, HORIZONTAL}
+  val fstHalfVertvertical = vertical.subList(0, vertical.size / 2)
+  val sndHalfvertical = vertical.subList(vertical.size / 2, vertical.size)
+  val vertPairSlides = fstHalfVertvertical.zip(sndHalfvertical) {p1, p2 -> DoubleSlide(p1, p2))}
 
-data class Photo(val id: Int, val orientation: Orientation, val tags: Set<String>) {
-  // Photo has a set of strings, which represents its tags
-}
+  val slides = mutableListOf<Slide>()
+  horizontal.forEach { slides.add(SingleSlide(it)) }
+  slides.addAll(vertPairSlides)
 
-interface Slide {
-  val tags: Set<String>
+  val slideshow = Slideshow(slides)
 
-  companion object {
-    fun getInterestFactor(s1 : Photo, s2 : Photo) : Int {
-      // Gets the minimum of counttagsins1butnotins2, counttagsins2butnotins1,
-      // counttagsincommon
-
-      // TODO
-      return 0
-    }
-  }
-}
-
-data class SingleSlide(val photo: Photo) : Slide {
-  override val tags: Set<String> = photo.tags
-}
-
-data class DoubleSlide(val photo1: Photo, val photo2: Photo) : Slide {
-  override val tags: Set<String> = photo1.tags + photo2.tags
-}
-
-object Tags {
-  fun countTagsInCommon(p1 : Photo, p2 : Photo) : Int {
-    return p1.tags.intersect(p2.tags).size
-  }
-
-  fun countTagsInCommon(p1 : Slide, p2 : Slide) : Int {
-    return p1.tags.intersect(p2.tags).size
-  }
-
-  fun countTagsInP1ButNotInP2(p1 : Photo, p2 : Photo) : Int {
-    return (p1.tags - p2.tags).size
-  }
-
-  fun countTagsInP1ButNotInP2(p1 : Slide, p2 : Slide) : Int {
-    return (p1.tags - p2.tags).size
-  }
-
-  fun countTagsInP2ButNotInP1(p1 : Photo, p2 : Photo) : Int {
-    return (p2.tags - p1.tags).size
-  }
-
-  fun countTagsInP2ButNotInP1(p1 : Slide, p2 : Slide) : Int {
-    return (p2.tags - p1.tags).size
-  }
+  val
 }
 
 class Slideshow(val slides: List<Slide>) {
-  fun score(): Int {
-    return this.slides.zipWithNext().fold(0) {
-      i, (x, y) -> minOf(Tags.countTagsInCommon(x, y), Tags.countTagsInP1ButNotInP2(x, y), Tags.countTagsInP2ButNotInP1(x, y))
-    }
-  }
 
   companion object {
+    // Algorithm re-orders an arbitrary list of slides.THIS IS WHERE THE MAIN
+    // ALGORITHM GOES.
+    fun optimizeSegment(slides : List<Slide>) : List<Slide> {
+      assert slides.size() > 0
+      val permutations = getAllPermutationsOfSegment(slides)
+      val max = 0
+      val maxSlides  = slides.get(0)
+      for (i in 0 until slides.length) {
+        val score = Slideshow.score(slides.get(i))
+        if score > max {
+          max = score
+          maxSlides = slides.get(i)
+        }
+      }
+
+      return maxSlides
+    }
+
     // 1. Choose M vertical photos which we know we will combine into slides (we do this
     // naive algorithm in a helper function since we can always swap this algorithm out
     // into an optimised one)
     fun mergeNVerticalPhotosIntoSlides(photos : List<Photo>, m: Int) : List<List<Slide>> {      // TODO
-      return emptyList()
-      val candidates : ArrayList<Int> = arrayListOf()
+      // Copy a list of photos so we don't actually modify them as we delete items
+      photos = photos.toMutableList()
+
+      // Go through the list in order, choosing the first (at most, if there are not M)
+      // M vertical photos to appear
+      List<Candidates>
 
       return arrayListOf(arrayListOf())
     }
 
-    // Algorithm re-orders an arbitrary list of slides.THIS IS WHERE THE MAIN
-    // ALGORITHM GOES.
-    fun optimizeSegment(slides : List<Slide>) : List<Slide> {
-      val permutations = getAllPermutationsOfSegment(slides);
-            //
-      return emptyList()
-    }
-
     fun getAllPermutationsOfSegment(slides : List<Slide>) : List<List<Slide>> {
+      // copied and pasted from https://www.programcreek.com/2013/02/leetcode-permutations-java/
       val result = ArrayList<ArrayList<Slide>>()
       result.add(ArrayList<Slide>())
 
@@ -126,6 +104,13 @@ class Slideshow(val slides: List<Slide>) {
       }
 
       return result
+    }
+
+    // Calculate total interest of a slideshow
+    fun score(slides: List<slides>): Int {
+      return slides.zipWithNext().fold(0) {
+        i, (x, y) -> minOf(Tags.countTagsInCommon(x, y), Tags.countTagsInP1ButNotInP2(x, y), Tags.countTagsInP2ButNotInP1(x, y))
+      }
     }
   }
 }

@@ -24,7 +24,7 @@ class PhotoParser(val input: String) {
     val splitLine = line.split(" ")
     val orientation = if (splitLine[0] == "H") Orientation.HORIZONTAL else Orientation.VERTICAL
     val numberOfTags = splitLine[1].toInt()
-    val tags = splitLine.slice(2..numberOfTags+1).toSet()
+    val tags = splitLine.slice(2..numberOfTags).toSet()
     return Photo(id++, orientation, tags)
   }
 }
