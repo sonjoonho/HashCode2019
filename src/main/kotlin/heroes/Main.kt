@@ -32,14 +32,7 @@ fun main(args: Array<String>) {
   // Split photos into horizontal and vertical
   val (horizontal, vertical) = photos.partition { it.orientation == Orientation.HORIZONTAL}
 
-  // Convert Horizontal photos to slides
-  val horizontalSlides = horizontal.map { SingleSlide(it) }
-
-  // Convert Vertical photos to slides (use function that can be optimised later)
-  val verticalSlides = verticalPhotosToSlides(vertical)
-
-  // Combine horizontal and vertical slides to a slideshow
-  val slideshow = Slideshow(horizontalSlides + verticalSlides)
+  val slideshow = SlideshowBuilder(horizontal, vertical).build()
 
   // Do output generation
   val outputGenerator = OutputGenerator(slideshow, args[0])
