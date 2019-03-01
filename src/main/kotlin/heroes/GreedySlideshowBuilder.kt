@@ -17,7 +17,7 @@ class GreedySlideshowBuilder(private val horizontalPhotos: List<Photo>, private 
 
         while (horizontalSlides.isNotEmpty() || verticalPhotosCopy.size > 1) {
 
-            val verticalSlides = allPossibleVerticalSlides(verticalPhotosCopy)
+            val verticalSlides = verticalPhotosToSlides(verticalPhotosCopy)
 
             val bestMatch = findBestMatch(slides.last(), horizontalSlides + verticalSlides)
 
