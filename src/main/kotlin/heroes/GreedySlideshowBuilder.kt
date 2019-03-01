@@ -19,6 +19,8 @@ class GreedySlideshowBuilder(private val horizontalPhotos: List<Photo>, private 
 
         while (horizontalSlides.isNotEmpty() || verticalPhotosCopy.size > 1) {
 
+            print("Looping -- ")
+
             val verticalSlides = verticalPhotosToSlides(verticalPhotosCopy)
 
             val bestMatch = findBestMatch(slides.last(), horizontalSlides + verticalSlides)
@@ -66,7 +68,7 @@ fun findBestMatch(slide: Slide, choices: List<Slide>): Slide {
     var highestInterestFactor = Integer.MIN_VALUE
     var chosenSlide = choices.first()
 
-    for (choice in choices.take(100)) {
+    for (choice in choices.take(50)) {
         val interestFactor = getInterestFactor(slide, choice)
 
         if (interestFactor > highestInterestFactor) {
