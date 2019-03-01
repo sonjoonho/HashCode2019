@@ -13,7 +13,6 @@ class GreedySlideshowBuilder(private val horizontalPhotos: List<Photo>, private 
                                  .toMutableList()
 
         val verticalPhotosCopy = verticalPhotos
-                                   .sortedBy { it.tags.size }
                                    .toMutableList()
 
         while (horizontalSlides.isNotEmpty() || verticalPhotosCopy.size > 1) {
