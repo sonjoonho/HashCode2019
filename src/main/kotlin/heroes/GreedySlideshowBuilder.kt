@@ -68,7 +68,7 @@ fun findBestMatch(slide: Slide, choices: List<Slide>): Slide {
     var highestInterestFactor = Integer.MIN_VALUE
     var chosenSlide = choices.first()
 
-    for (choice in choices.take(50)) {
+    for (choice in choices.take(30)) {
         val interestFactor = getInterestFactor(slide, choice)
 
         if (interestFactor > highestInterestFactor) {
